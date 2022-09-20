@@ -13,6 +13,7 @@ export default function App(props) {
         {...props}
       />
       {editor}
+      {/* {process.env.REACT_API_KEY} */}
     </div>
   );
 }

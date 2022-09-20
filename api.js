@@ -1,7 +1,35 @@
-import express from 'express'
-import multer from 'multer'
-import cors from 'cors';
+// import express from 'express'
+// import multer from 'multer'
+// import cors from 'cors';
+// import bodyParser from 'body-parser'
+// import mysql from 'mysql2'
+// import dotenv from 'dotenv'
+const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+const bodyParser = require('body-parser')
+const mysql = require('mysql2')
+
+require('dotenv').config();
+
+const port = process.env.port;
+
 const app = express();
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
+console.log(process.env.PORT)
+
+const conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'miscwcmc326442',
+  database: 'sdgs',
+  
+})
+
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/");
