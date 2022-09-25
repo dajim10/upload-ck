@@ -13,7 +13,7 @@ const mysql = require('mysql2')
 require('dotenv').config();
 
 const port = process.env.port;
-
+console.log(process.env.HOST)
 const app = express();
 app.use(bodyParser.urlencoded({
   extended: true

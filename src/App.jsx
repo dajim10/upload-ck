@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import MyEditor from "./MyEditor";
+import React from 'react'
+import InputContent from './InputContent'
 
-export default function App(props) {
-  const [editor, setEditor] = useState(null);
+const App = () => {
+
   return (
-    <div className="App">
-      <MyEditor
-        handleChange={(data) => {
-          setEditor(data);
-        }}
-        data={editor}
-        {...props}
-      />
-      {editor}
-      {/* {process.env.REACT_API_KEY} */}
-    </div>
-  );
+    <InputContent />
+  )
 }
+
+export default App
