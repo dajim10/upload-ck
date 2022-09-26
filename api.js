@@ -61,6 +61,13 @@ app.post("/upload_files", (req, res) => {
 });
 
 
+app.get("/sdgs", (req, res) => {
+  conn.query("SELECT * FROM sdg_goal", (err, result) => {
+    if (err) throw err;
+    res.send(result)
+  })
+})
+
 
 app.listen(3000, () => {
   console.log(`Server started...`);

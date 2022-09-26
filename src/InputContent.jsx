@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import MyEditor from "./MyEditor";
 import axios from 'axios'
 
 
 export default function InputContent(props) {
   const [editor, setEditor] = useState(null);
+  const [sdgs, setSdgs] = useState([]);
   const [data, setData] = useState({
     content_name: '',
     content_detail: '',
@@ -13,6 +14,17 @@ export default function InputContent(props) {
     type: 0,
 
   })
+
+  const getData = () => {
+    axios.get('http://localhost:3000/sdgs')
+      .then(res => setSdgs(res.data))
+      .catch(err => console.log(err));
+  }
+  
+  useEffect(() => {
+    getData();
+    
+  },[])
 
   function handleChange(e) {
     const value = e.target.value;
@@ -27,7 +39,7 @@ export default function InputContent(props) {
   return (
     <div className="container">
       <h1>RUTs SDGs 17 Goal</h1>
-      <form className="form-group">
+      <form className="form-group" encType="multipart/form-data">
         <label htmlFor="content_name">Content Title</label>
         <input type="text" className="form-control" name="content_name" onChange={handleChange}/>
         <label htmlFor="selection">Toppic Type</label>
@@ -41,13 +53,24 @@ export default function InputContent(props) {
         <MyEditor
           handleChange={(data) => {
             setEditor(data);
-           
-          }}
+              }}
           data={editor}
           {...props}
           
         />
-          <button type="submit" className="btn btn-dark mt-2">Submit</button>
+        <div className="mt-3">
+          {sdgs.map((item, idx) => (
+            <ul key={idx}>
+              <input type="checkbox" />
+             
+              <span className="rounded shadow p-2 m-2"
+                style={{ backgroundColor: item.color, color: '#fff' }}>{item.id}{item.detail}</span>
+            </ul>
+          ))}
+        </div>
+        <div>
+          <input type="submit"  className="btn btn-dark btn-lg" value="submit"/>
+       </div>
       </form>
       {/* {editor} */}
     </div>
